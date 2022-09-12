@@ -2,9 +2,9 @@ from django.shortcuts import render
 from katalog.models import CatalogItem
 
 # TODO: Create your views here.
-data_catalog_item = CatalogItem.objects.all()
+data_katalog_item = CatalogItem.objects.all()
 context = {
-    'list_item': data_catalog_item,
+    'list_barang': data_katalog_item,
     'nama': 'Fadlan Ariel Fathurrahman',
     'npm' : '2106750673',
 }
