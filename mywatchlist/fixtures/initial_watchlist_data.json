@@ -6,7 +6,7 @@
             "watched" : "True",
             "title" : "Doctor Strange In The Multiverse Of Madness",
             "rating" : "3",
-            "release_date" : "May 5, 2022",
+            "release_date" : "2022-05-05",
             "review" : "The story focused more on the side chracters instead of the main character"
         }
     },
@@ -17,7 +17,7 @@
             "watched" : "True",
             "title" : "Spider-Man: No Way Home",
             "rating" : "5",
-            "release_date" : "December 15, 2021",
+            "release_date" : "2021-12-15",
             "review" : "One of the best spider-man movie i've ever watched, bringing back the other actors of spidey makes me feel nostalgic"
         }
     },
@@ -28,7 +28,7 @@
             "watched" : "False",
             "title" : "Mencuri Raden Saleh",
             "rating" : "0",
-            "release_date" : "August 25, 2022",
+            "release_date" : "2022-08-25",
             "review" : "-"
         }
     },
@@ -39,7 +39,7 @@
             "watched" : "True",
             "title" : "Thor: Love and Thunder",
             "rating" : "5",
-            "release_date" : "July 6, 2022",
+            "release_date" : "2022-07-06",
             "review" : "This movie was amazing it is a thrill riding action-packed, emotional romantic journey"
         }
     },
@@ -50,7 +50,7 @@
             "watched" : "True",
             "title" : "Moon Knight",
             "rating" : "5",
-            "release_date" : "March 30, 2022",
+            "release_date" : "2022-03-30",
             "review" : "Personally, one of the best Disney+ MCU series. The storytelling and writing are really on point"
         }
     },
@@ -61,7 +61,7 @@
             "watched" : "False",
             "title" : "The Batman",
             "rating" : "0",
-            "release_date" : "March 2, 2022",
+            "release_date" : "2022-03-02",
             "review" : "-"
         }
     },
@@ -72,7 +72,7 @@
             "watched" : "True",
             "title" : "Seoul Vibe",
             "rating" : "4",
-            "release_date" : "August 26, 2022",
+            "release_date" : "2022-08-26",
             "review" : "This movie was so good and unique. Love the styling for the setting of the '88 olympics"
         }
     },
@@ -83,7 +83,7 @@
             "watched" : "True",
             "title" : "Big Mouth",
             "rating" : "5",
-            "release_date" : "July 29, 2022",
+            "release_date" : "2022-07-29",
             "review" : "As a crime k-drama enjoyer, i really like the writing of this drama. It makes us guess each episode on who the big mouse is"
         }
     },
@@ -94,7 +94,7 @@
             "watched" : "True",
             "title" : "The King's Man",
             "rating" : "3",
-            "release_date" : "December 22, 2021",
+            "release_date" : "2021-12-22",
             "review" : "Much better than the second movie, while not being really good but still brings back the quality to the first Kingsman"
         }
     },
@@ -105,7 +105,7 @@
             "watched" : "False",
             "title" : "Free Guy",
             "rating" : "0",
-            "release_date" : "October 31, 2021",
+            "release_date" : "2021-10-31",
             "review" : "-"
         }
     }
