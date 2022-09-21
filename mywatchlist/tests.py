@@ -1,6 +1,5 @@
 from django.test import TestCase, Client
 from django.urls import resolve
-from mywatchlist.views import MyWatchList
 
 # Create your tests here.
 
