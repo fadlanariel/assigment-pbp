@@ -14,7 +14,7 @@ from django.core import serializers
 # Create your views here.
 @login_required(login_url='/todolist/login/')
 def show_todolist(request):
-    data_todolist = MyTodoList.objects.all()
+    data_todolist = MyTodoList.objects.filter(user=request.user)
     context = {
         'data_todolist' : data_todolist,
         'last_login': request.COOKIES['last_login'],
