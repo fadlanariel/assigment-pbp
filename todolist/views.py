@@ -60,6 +60,7 @@ def create_task(request):
 def addTaskView(request):
     taskname = request.POST['title']
     desc = request.POST['description']
-    new_task = MyTodoList(user=request.user, title=taskname, description=desc, date=datetime.date.today())
+    created_date = str(datetime.date.today())
+    new_task = MyTodoList(user=request.user, title=taskname, description=desc, date=created_date)
     new_task.save()
     return HttpResponseRedirect('/todolist/')
