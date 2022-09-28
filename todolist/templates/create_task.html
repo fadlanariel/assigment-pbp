@@ -10,11 +10,16 @@
   <br>
 
   <form action="/todolist/addTask/" method = "post">{% csrf_token %}
-    <input type="text" name="title">
-    <input type="text" name="description">
+    <table>
+      <tr>
+        <th><label for="title">Task Title</label><input type="text" name="title" maxlength="100"></th>
+        <br>
+        <th><label for="description">Task Description</label><input type="text" name="description" maxlength="250"></th>
+      </tr>
+    </table>
     <input type="submit" value="Add Task">
   </form> 
-
+    
   <br>
   
 
