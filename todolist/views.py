@@ -8,8 +8,6 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.http import HttpResponse
-from django.core import serializers
 
 # Create your views here.
 @login_required(login_url='/todolist/login/')
@@ -20,10 +18,6 @@ def show_todolist(request):
         'last_login': request.COOKIES['last_login'],
     }
     return render(request, "todolist.html", context)
-
-def show_todolist_xml(request):
-    data_todolist = MyTodoList.objects.all()
-    return HttpResponse(serializers.serialize("xml", data_todolist), content_type="application/xml")
 
 # Forms
 def register(request):
