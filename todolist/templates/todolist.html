@@ -1,30 +1,36 @@
 {% extends 'base.html' %}
 
- {% block content %}
+{% block meta %}
+<title>My To Do List</title>
+{% endblock meta %}
 
-  <h1>My To Do List</h1>
-
-  <h5>Name: </h5>
-  <p>{{user.get_username}}</p>
+{% block content %}
+  <nav class="navbar navbar-dark bg-dark navbar-expand-lg sticky-top max-width">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h3">{{user.get_username}} To Do List</span>
+        <a class="btn btn-danger" type="button" href="{% url 'todolist:logout' %}">Logout</a>
+    </div>
+  </nav>
   <br>
-  <table>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Date</th>
-    </tr>
-    {% comment %} Add the data below this line {% endcomment %}
-    {% for task in data_todolist %}
-      <tr>
-        <th>{{ task.title }}</th>
-        <th>{{ task.description }}</th>
-        <th>{{ task.date }}</th>
-      </tr>
-    {% endfor %}
-
-  </table>
   <br>
-  <button><a href="{% url 'todolist:create-task' %}">Create Task</a></button>
-  <button><a href="{% url 'todolist:logout' %}">Logout</a></button>
+  <main role="main" class="container">
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      {% for task in data_todolist %}
+      <div class="row">
+        <div class="card m-4 mx-auto" style="max-width: 75%;">
+          <div class="card-body">
+            <h5 class="card-header text-center">{{ task.title }}</h5>
+            <p class="card-text">{{ task.description }}</p>
+            <p class="card-text">{{ task.date }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </main>
+  <br>
+  <div class="d-flex justify-content-center align-content-center w-20 mb-2 sticky-bottom">
+    <a type="button" class="btn btn-primary mb-2" href="{% url 'todolist:create-task' %}">Create Task</a>
+  </div>
 
- {% endblock content %}
+{% endblock content %}

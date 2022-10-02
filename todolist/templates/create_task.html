@@ -2,25 +2,30 @@
 
  {% block content %}
 
-  <h1>My To Do List</h1>
+ <nav class="navbar navbar-dark bg-dark navbar-expand-lg sticky-top max-width">
+  <div class="container-fluid">
+      <span class="navbar-brand mb-0 h3">{{user.get_username}} To Do List</span>
+      <a class="btn btn-danger" type="button" href="{% url 'todolist:logout' %}">Logout</a>
+  </div>
+</nav>
+<br>
+
+<div class="container-fluid border rounded w-auto h-auto position-absolute top-50 start-50 translate-middle" style="padding: 2%; background-color: #fafafac4;">
+
   <h2>Create Task</h2>
-
-  <h5>Name: </h5>
-  <p>{{user.get_username}}</p>
-  <br>
-
+  
   <form action="/todolist/addTask/" method = "post">{% csrf_token %}
     <table>
       <tr>
-        <th><label for="title">Task Title</label><input type="text" name="title" maxlength="100"></th>
-        <br>
-        <th><label for="description">Task Description</label><input type="text" name="description" maxlength="250"></th>
+        <th><label for="title"></label><input type="text" name="title" maxlength="100" placeholder="Task title"></th>
+      </tr>
+      <tr>
+        <th><label for="description"></label><textarea name="description" placeholder="Description" style="resize: both;"></textarea></th>
       </tr>
     </table>
     <input type="submit" value="Add Task">
   </form> 
-    
-  <br>
   
+</div>
 
  {% endblock content %}
