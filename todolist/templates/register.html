@@ -2,13 +2,23 @@
 
 {% block meta %}
 <title>Registrasi Akun</title>
+<style>
+    div.login {
+        padding: 2vw;
+        background-color: #fafafac4;
+    }
+
+    h1 {
+        text-align: center;
+    }
+</style>
 {% endblock meta %}
 
 {% block content %}  
 
-<div class = "login container-fluid border rounded w-auto h-auto position-absolute top-50 start-50 translate-middle" style="padding: 2%; background-color: #fafafac4;">
+<div class = "login container-fluid border rounded w-auto h-auto position-absolute top-50 start-50 translate-middle">
     
-    <h1 style="text-align: center;">Formulir Registrasi</h1>  
+    <h1>Formulir Registrasi</h1>  
 
         <form method="POST" >  
             {% csrf_token %}  

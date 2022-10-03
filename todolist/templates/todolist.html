@@ -2,12 +2,21 @@
 
 {% block meta %}
 <title>My To Do List</title>
+<style>
+  .card {
+    max-width: 75vh;
+  }
+
+  .row {
+    margin: 0;
+  }
+</style>
 {% endblock meta %}
 
 {% block content %}
   <nav class="navbar navbar-dark bg-dark navbar-expand-lg sticky-top max-width">
     <div class="container-fluid">
-        <span class="navbar-brand mb-0 h3">{{user.get_username}} To Do List</span>
+        <a class="navbar-brand mb-0 h3" href="{% url 'todolist:show_todolist' %}">{{user.get_username}}'s To Do List</a>
         <a class="btn btn-danger" type="button" href="{% url 'todolist:logout' %}">Logout</a>
     </div>
   </nav>
@@ -17,7 +26,7 @@
     <div class="row row-cols-1 row-cols-md-2 g-4">
       {% for task in data_todolist %}
       <div class="row">
-        <div class="card m-4 mx-auto" style="max-width: 75%;">
+        <div class="card m-4 mx-auto">
           <div class="card-body">
             <h5 class="card-header text-center">{{ task.title }}</h5>
             <p class="card-text">{{ task.description }}</p>

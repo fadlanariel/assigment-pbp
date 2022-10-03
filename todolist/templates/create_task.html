@@ -1,31 +1,46 @@
 {% extends 'base.html' %}
 
- {% block content %}
+{% block meta %}
+<title>Create Task</title>
+<style>
+  #task-form {
+    padding: 2vw;
+    background-color: #fafafac4;
+  }
 
- <nav class="navbar navbar-dark bg-dark navbar-expand-lg sticky-top max-width">
-  <div class="container-fluid">
-      <span class="navbar-brand mb-0 h3">{{user.get_username}} To Do List</span>
+  textarea {
+    height: 10vmax;
+    width: 20vmax;
+    resize: both;
+  }
+</style>
+{% endblock meta %}
+
+{% block content %}
+
+  <nav class="navbar navbar-dark bg-dark navbar-expand-lg sticky-top max-width">
+    <div class="container-fluid">
+      <a class="navbar-brand mb-0 h3" href="{% url 'todolist:show_todolist' %}">{{user.get_username}}'s To Do List</a>
       <a class="btn btn-danger" type="button" href="{% url 'todolist:logout' %}">Logout</a>
+    </div>
+  </nav>
+  <br>
+
+  <div id="task-form" class="container-fluid border rounded w-auto h-auto position-absolute top-50 start-50 translate-middle">
+
+    <h2>Create Task</h2>
+  
+    <form action="/todolist/addTask/" method = "post">{% csrf_token %}
+      <table>
+        <tr>
+          <th><label for="title"></label><input type="text" name="title" maxlength="100" placeholder="Task title"></th>
+        </tr>
+        <tr>
+          <th><label for="description"></label><textarea name="description" placeholder="Description"></textarea></th>
+        </tr>
+      </table>
+      <input type="submit" value="Add Task">
+    </form> 
   </div>
-</nav>
-<br>
 
-<div class="container-fluid border rounded w-auto h-auto position-absolute top-50 start-50 translate-middle" style="padding: 2%; background-color: #fafafac4;">
-
-  <h2>Create Task</h2>
-  
-  <form action="/todolist/addTask/" method = "post">{% csrf_token %}
-    <table>
-      <tr>
-        <th><label for="title"></label><input type="text" name="title" maxlength="100" placeholder="Task title"></th>
-      </tr>
-      <tr>
-        <th><label for="description"></label><textarea name="description" placeholder="Description" style="resize: both;"></textarea></th>
-      </tr>
-    </table>
-    <input type="submit" value="Add Task">
-  </form> 
-  
-</div>
-
- {% endblock content %}
+{% endblock content %}
