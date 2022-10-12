@@ -68,25 +68,37 @@ def addTaskView(request):
     new_task.save()
     return HttpResponseRedirect('/todolist/')
 
+@login_required(login_url='/todolist/login/')
 def add_task(request):
-    data_todolist = MyTodoList.objects.all()
-    response_data = {}
+    if request.user.is_authenticated:
+        data_todolist = MyTodoList.objects.all()
+        response_data = {}
 
-    if request.POST.get('action') == 'post':
-        title = request.POST.get('title')
-        description = request.POST.get('description')
-        date =  str(datetime.date.today())
+        if request.POST.get('action') == 'post':
+            title = request.POST.get('title')
+            description = request.POST.get('description')
+            date =  str(datetime.date.today())
 
-        response_data['title'] = title
-        response_data['description'] = description
-        response_data['date'] = date
+            response_data['title'] = title
+            response_data['description'] = description
+            response_data['date'] = date
 
-        MyTodoList.objects.create(
-            user = request.user,
-            title = title,
-            description = description,
-            date = date,
-            )
-        return JsonResponse(response_data)
+            MyTodoList.objects.create(
+                user = request.user,
+                title = title,
+                description = description,
+                date = date,
+                )
+            return JsonResponse(response_data)
 
-    return render(request, 'todolist.html', {'data_todolist':data_todolist}) 
+        return render(request, 'todolist.html', {'data_todolist':data_todolist}) 
+    else:
+        return redirect('todolist:login')
+
+def delete(request, id):
+    if request.user.is_authenticated:
+        task = MyTodoList.objects.get(id=id)
+        task.delete()
+        return redirect('todolist:show_todolist')
+    else:
+        return redirect('todolist:login')
