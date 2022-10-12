@@ -58,35 +58,37 @@
     document.getElementById("add-task").reset();
   }
 
-  $.ajax({
-    url: "{% url 'todolist:json' %}",
-    dataType: 'json',
-    success: function (data) { // jika request berhasil
-      $("#cardTable").empty();
-      for (var i = 0; i < data.length; i++) {
-        var row = `<div class="row"><div class="card m-4 mx-auto">
-                    <h5 class="card-header text-center"> ${data[i].fields.title}</h5>
-                      <div class="card-body">
-                        <p class="card-text">${data[i].fields.description}</p>
-                      </div>
-                      <div class="card-footer container">
-                        <div id="footer-row" class="row justify-content-sm-between">
-                          <div class="col-4 align-self-center">
-                            <p class="text-muted">Created: ${data[i].fields.date}</p>
-                          </div>
-                          <div class="col-4 align-self-center push">
-                            <a id="delete-btn" class="btn btn-danger justify-content-end btn-sm" type="button" href='delete/${data[i].pk}'>Delete Task</a>
+  function refresh() {
+    $.ajax({
+      url: "{% url 'todolist:json' %}",
+      dataType: 'json',
+      success: function (data) { // jika request berhasil
+        $("#cardTable").empty();
+        for (var i = 0; i < data.length; i++) {
+          var row = `<div class="row"><div class="card m-4 mx-auto">
+                      <h5 class="card-header text-center"> ${data[i].fields.title}</h5>
+                        <div class="card-body">
+                          <p class="card-text">${data[i].fields.description}</p>
+                        </div>
+                        <div class="card-footer container">
+                          <div id="footer-row" class="row justify-content-sm-between">
+                            <div class="col-4 align-self-center">
+                              <p class="text-muted">Created: ${data[i].fields.date}</p>
+                            </div>
+                            <div class="col-4 align-self-center push">
+                              <a id="delete-btn" class="btn btn-danger justify-content-end btn-sm" type="button" href='delete/${data[i].pk}'>Delete Task</a>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                   </div>`;
-        $('#cardTable').append(row);
+                     </div>`;
+          $('#cardTable').append(row);
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) { // jika request gagal tampilkan error message
+        alert('Error: ' + textStatus + ' - ' + errorThrown);
       }
-    },
-    error: function (jqXHR, textStatus, errorThrown) { // jika request gagal tampilkan error message
-      alert('Error: ' + textStatus + ' - ' + errorThrown);
-    }
-  });
+    });
+  }
 
   $(document).on('submit', '#add-task', function (e) { // dapatkan trigger melalui id dari button
     $.ajax({
@@ -99,13 +101,20 @@
         action: 'post'
       },
       success: function (json) {
-        document.getElementById("add-wishlist").reset();
+        document.getElementById("add-task").reset();
+        refresh();
       },
       error: function (xhr, errmsg, err) { // tampilkan error message jika gagal
         console.log(xhr.status + ": " + xhr.responseText);
       }
     });
   });
+
+  
+
+  $(document).ready(function () {
+        refresh();
+  })
 </script>
 
 <nav class="navbar navbar-dark bg-dark navbar-expand-lg sticky-top max-width">
