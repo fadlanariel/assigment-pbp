@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block meta %}
 <title>My To Do List</title>
+<link rel="stylesheet" href="{% static 'css/todolist.css' %}">
 <style>
   .card {
     max-width: 75vh;
@@ -25,39 +27,127 @@
 
   .card-footer {
     margin-bottom: 0%;
-    text-align: right;
+    text-align: left;
+  }
+
+  li {
+    margin-left: 0.4vmax;
+    margin-right: 0.4vmax;
+  }
+
+  #greeting {
+    font-weight: bold;
+    margin-bottom: 3vmax;
+    text-transform: lowercase;
   }
 
 </style>
 {% endblock meta %}
 
 {% block content %}
-  <nav class="navbar navbar-dark bg-dark navbar-expand-lg sticky-top max-width">
-    <div class="container-fluid">
-        <a class="navbar-brand mb-0 h3" href="{% url 'todolist:show_todolist' %}">{{user.get_username}}'s To Do List</a>
-        <a class="btn btn-danger" type="button" href="{% url 'todolist:logout' %}">Logout</a>
-    </div>
-  </nav>
-  <br>
-  <br>
-  <main role="main" class="container">
-    <div class="row row-cols-1 row-cols-md-2 g-4">
-      {% for task in data_todolist %}
-      <div class="row">
-        <div class="card m-4 mx-auto">
-          <h5 class="card-header text-center">{{ task.title }}</h5>
-          <div class="card-body">
-            <p class="card-text">{{ task.description }}</p>
-          </div>
-          <p class="card-footer text-muted">Created: {{ task.date }}</p>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-  </main>
-  <br>
-  <div class="d-flex justify-content-center align-content-center w-20 mb-2 sticky-bottom">
-    <a type="button" class="btn btn-primary mb-2" href="{% url 'todolist:create-task' %}">Create Task</a>
+<script type="text/javascript">
+  $.ajax({
+    url: './json/',
+    dataType: 'json',
+    success: function (data) { // jika request berhasil
+      for (var i = 0; i < data.length; i++) {
+        var row = `<div class="row"><div class="card m-4 mx-auto">
+                    <h5 class="card-header text-center"> ${data[i].fields.title}</h5>
+                      <div class="card-body">
+                        <p class="card-text">${data[i].fields.description}</p>
+                      </div>
+                      <div class="card-footer container">
+                        <div class="row justify-content-between">
+                          <div class="col-4">
+                            <p class="text-muted">Created: ${data[i].fields.date}</p>
+                          </div>
+                          <div class="col-4 ">
+                            <a id="delete-btn" class="btn btn-danger justify-content-end" type="button" href="#">Delete Task</a>
+                          </div>
+                        </div>
+                      </div>
+                   </div>`;
+        $('#cardTable').append(row);
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown) { // jika request gagal tampilkan error message
+      alert('Error: ' + textStatus + ' - ' + errorThrown);
+    }
+  });
+
+  $(document).on('submit', '#add-task', function (e) { // dapatkan trigger melalui id dari button
+    $.ajax({
+      type: 'POST',
+      url: "{% url 'todolist:add_task' %}", //url untuk ke views tambahkan data
+      data: { // dapatkan data sesuai id dari input yang ada di form
+        title: $('#title').val(),
+        description: $('#Description').val(),
+        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+        action: 'post'
+      },
+      success: function (json) {
+        document.getElementById("add-wishlist").reset();
+      },
+      error: function (xhr, errmsg, err) { // tampilkan error message jika gagal
+        console.log(xhr.status + ": " + xhr.responseText);
+      }
+    });
+  });
+</script>
+
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg sticky-top max-width">
+  <div class="container-fluid">
+    <a id="test" class="navbar-brand mb-0 h3" href="{% url 'todolist:show_todolist' %}">To Do List</a>
+    <ul class="nav navbar-nav navbar-right">
+      <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          Create Task v2</button>
+      </li>
+      <li><a class="btn btn-danger" type="button" href="{% url 'todolist:logout' %}">Logout</a></li>
+    </ul>
   </div>
+</nav>
+<br>
+<br>
+<main role="main" class="container">
+  <h1 id="greeting">Hello, {{user.get_username}}</h1>
+  <div id="cardTable" class="row row-cols-1 row-cols-md-2 g-4">
+
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" id="add-task">
+            {% csrf_token %}
+            <div class="form-group">
+              <label>Task Title</label>
+              <input type="text" class="form-control" id="title" placeholder="Task Title">
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea class="form-control" id="Description" placeholder="Description"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+          <button id="submit-btn" type="submit" class="btn btn-primary">Add Task</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</main>
+<footer>
+  <br>
+</footer>
+
 
 {% endblock content %}

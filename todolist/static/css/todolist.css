@@ -1,0 +1,35 @@
+.card {
+    max-width: 75vh;
+    min-height: 30vh;
+    height: auto;
+    transition: all .2s ease-in-out;
+    overflow: hidden;
+  }
+
+  .card:hover {
+    transform: scale(1.3);
+    z-index: 10;
+  }
+
+  .row>* {
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+    max-width: 95%;
+  }
+
+  .card-footer {
+    margin-bottom: 0%;
+    text-align: left;
+  }
+
+  li {
+    margin-left: 0.4vmax;
+    margin-right: 0.4vmax;
+  }
+
+  #greeting {
+    font-weight: bold;
+    margin-bottom: 3vmax;
+    text-transform: lowercase;
+  }
