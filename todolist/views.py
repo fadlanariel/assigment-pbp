@@ -100,6 +100,6 @@ def delete(request, id):
         task = MyTodoList.objects.get(id=id)
         task.delete()
         response_data = {}
-        return JsonResponse(response_data)
+        return HttpResponseRedirect('/todolist/')
     else:
         return redirect('todolist:login')
