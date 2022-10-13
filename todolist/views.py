@@ -1,3 +1,4 @@
+from urllib import response
 from django.shortcuts import render
 from todolist.models import MyTodoList
 from django.shortcuts import redirect
@@ -91,7 +92,6 @@ def add_task(request):
                 )
             return JsonResponse(response_data)
 
-        return render(request, 'todolist.html', {'data_todolist':data_todolist}) 
     else:
         return redirect('todolist:login')
 
@@ -99,6 +99,7 @@ def delete(request, id):
     if request.user.is_authenticated:
         task = MyTodoList.objects.get(id=id)
         task.delete()
-        return redirect('todolist:show_todolist')
+        response_data = {}
+        return JsonResponse(response_data)
     else:
         return redirect('todolist:login')

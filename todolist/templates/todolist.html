@@ -58,14 +58,14 @@
     document.getElementById("add-task").reset();
   }
 
-  function refresh() {
-    $.ajax({
-      url: "{% url 'todolist:json' %}",
-      dataType: 'json',
-      success: function (data) { // jika request berhasil
-        $("#cardTable").empty();
-        for (var i = 0; i < data.length; i++) {
-          var row = `<div class="row"><div class="card m-4 mx-auto">
+
+  $.ajax({
+    url: "{% url 'todolist:json' %}",
+    dataType: 'json',
+    success: function (data) { // jika request berhasil
+      $("#cardTable").empty();
+      for (var i = 0; i < data.length; i++) {
+        var row = `<div class="row"><div class="card m-4 mx-auto">
                       <h5 class="card-header text-center"> ${data[i].fields.title}</h5>
                         <div class="card-body">
                           <p class="card-text">${data[i].fields.description}</p>
@@ -81,14 +81,14 @@
                           </div>
                         </div>
                      </div>`;
-          $('#cardTable').append(row);
-        }
-      },
-      error: function (jqXHR, textStatus, errorThrown) { // jika request gagal tampilkan error message
-        alert('Error: ' + textStatus + ' - ' + errorThrown);
+        $('#cardTable').append(row);
       }
-    });
-  }
+    },
+    error: function (jqXHR, textStatus, errorThrown) { // jika request gagal tampilkan error message
+      alert('Error: ' + textStatus + ' - ' + errorThrown);
+    }
+  });
+
 
   $(document).on('submit', '#add-task', function (e) { // dapatkan trigger melalui id dari button
     $.ajax({
@@ -110,10 +110,9 @@
     });
   });
 
-  
 
   $(document).ready(function () {
-        refresh();
+    refresh();
   })
 </script>
 
@@ -140,7 +139,8 @@
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Create Task</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="clearForm();"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            onclick="clearForm();"></button>
         </div>
         <div class="modal-body">
           <form method="POST" id="add-task">
@@ -163,8 +163,9 @@
     </div>
   </div>
   <div class="d-flex justify-content-center align-content-center w-20 mb-2 sticky-bottom">
-    <button id="add-btn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Create Task</button>
-  </div> 
+    <button id="add-btn" type="button" class="btn btn-primary" data-bs-toggle="modal"
+      data-bs-target="#staticBackdrop">Create Task</button>
+  </div>
 
 </main>
 <footer>
