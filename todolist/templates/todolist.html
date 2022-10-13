@@ -102,7 +102,6 @@
       },
       success: function (json) {
         document.getElementById("add-task").reset();
-        refresh();
       },
       error: function (xhr, errmsg, err) { // tampilkan error message jika gagal
         console.log(xhr.status + ": " + xhr.responseText);
@@ -110,10 +109,6 @@
     });
   });
 
-
-  $(document).ready(function () {
-    refresh();
-  })
 </script>
 
 <nav class="navbar navbar-dark bg-dark navbar-expand-lg sticky-top max-width">
