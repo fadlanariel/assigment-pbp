@@ -47,7 +47,13 @@
   }
 
   #delete-btn {
-    width: 90%;
+    width: fit-content;
+    height: fit-content;
+    align-items: flex-end;
+  }
+
+  #date {
+    margin-bottom: 0.25vmax;
   }
 </style>
 {% endblock meta %}
@@ -68,16 +74,12 @@
                       <h5 class="card-header text-center"> ${data[i].fields.title}</h5>
                         <div class="card-body">
                           <p class="card-text">${data[i].fields.description}</p>
-                        </div>
-                        <div class="card-footer container">
-                          <div id="footer-row" class="row justify-content-sm-between">
-                            <div class="col-4 align-self-center">
-                              <p class="text-muted">Created: ${data[i].fields.date}</p>
-                            </div>
-                            <div class="col-4 align-self-center push">
-                              <a id="delete-btn" class="btn btn-danger justify-content-end btn-sm" type="button" href='delete/${data[i].pk}'>Delete Task</a>
-                            </div>
+                          <div class="container">
+                            <a id="delete-btn" class="btn btn-danger btn-sm float-end" type="button" href='delete/${data[i].pk}'>Delete Task</a>
                           </div>
+                        </div>
+                        <div class="card-footer">    
+                          <p id="date" class="text-muted">Created: ${data[i].fields.date}</p>                                                      
                         </div>
                      </div>`;
         $('#cardTable').append(row);
