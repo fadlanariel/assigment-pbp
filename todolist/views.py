@@ -99,7 +99,6 @@ def delete(request, id):
     if request.user.is_authenticated:
         task = MyTodoList.objects.get(id=id)
         task.delete()
-        response_data = {}
-        return HttpResponseRedirect('/todolist/')
+        return JsonResponse({'msg':'success'})
     else:
         return redirect('todolist:login')
