@@ -63,7 +63,6 @@
     url: "{% url 'todolist:json' %}",
     dataType: 'json',
     success: function (data) { // jika request berhasil
-      $("#cardTable").empty();
       for (var i = 0; i < data.length; i++) {
         var row = `<div class="row"><div class="card m-4 mx-auto">
                       <h5 class="card-header text-center"> ${data[i].fields.title}</h5>
@@ -101,7 +100,7 @@
         action: 'post'
       },
       success: function (json) {
-        document.getElementById("add-task").reset();
+        clearForm();
       },
       error: function (xhr, errmsg, err) { // tampilkan error message jika gagal
         console.log(xhr.status + ": " + xhr.responseText);
